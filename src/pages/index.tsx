@@ -1,12 +1,8 @@
 import type { NextPage } from 'next'
-import { Title, TitleTagsEnum } from '../components/Title'
+import { HeroSection } from '../components/HeroSection'
 
 const Home: NextPage = () => {
-    return (
-        <div className="container">
-            <Title tagName={TitleTagsEnum.h1}>Hello world.</Title>
-        </div>
-    )
+    return <HeroSection />
 }
 
 export default Home
