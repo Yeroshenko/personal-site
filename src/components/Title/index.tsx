@@ -1,6 +1,6 @@
-import React, { FC } from 'react'
-import styles from './styles.module.sass'
+import React, { forwardRef, HTMLProps } from 'react'
 import cn from 'classnames'
+import styles from './styles.module.sass'
 
 export enum TitleTagsEnum {
     h1 = 'h1',
@@ -12,13 +12,20 @@ export enum TitleTagsEnum {
     p = 'p'
 }
 
-interface ITitleProps {
+interface ITitleProps extends HTMLProps<HTMLHeadingElement | HTMLParagraphElement> {
     tagName?: TitleTagsEnum
     className?: string
 }
 
-export const Title: FC<ITitleProps> = ({ tagName = TitleTagsEnum.p, children, className }) => {
-    const TitleWrapper = tagName || TitleTagsEnum.p
+// eslint-disable-next-line react/display-name
+export const Title = forwardRef<HTMLHeadingElement | HTMLParagraphElement, ITitleProps>(
+    ({ tagName = TitleTagsEnum.p, children, className, ...props }, ref) => {
+        const TitleWrapper = tagName || TitleTagsEnum.p
 
-    return <TitleWrapper className={cn(styles.title, className)}>{children}</TitleWrapper>
-}
+        return (
+            <TitleWrapper ref={ref} {...props} className={cn(styles.title, className)}>
+                {children}
+            </TitleWrapper>
+        )
+    }
+)
