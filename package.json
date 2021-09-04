@@ -1,6 +1,7 @@
 {
   "name": "personal-site",
   "version": "0.1.0",
+  "type": "commonjs",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -11,10 +12,13 @@
     "check-format": "prettier --check ./src",
     "format": "prettier --write ./src",
     "prepare": "husky install",
-    "test-all": "yarn check-lint && yarn check-types yarn check-format"
+    "test-all": "yarn check-lint && yarn check-types yarn check-format",
+    "contentful-typescript-codegen": "contentful-typescript-codegen --output src/@types/generated/cms.d.ts"
   },
   "dependencies": {
+    "@contentful/rich-text-react-renderer": "^15.2.0",
     "classnames": "^2.3.1",
+    "contentful": "^8.5.0",
     "gsap": "^3.7.1",
     "next": "11.1.0",
     "react": "17.0.2",
@@ -25,6 +29,9 @@
     "@types/react": "17.0.19",
     "@typescript-eslint/eslint-plugin": "^4.29.3",
     "@typescript-eslint/parser": "^4.29.3",
+    "contentful-management": "^7.33.0",
+    "contentful-typescript-codegen": "^3.2.2",
+    "dotenv": "^10.0.0",
     "eslint": "^7.32.0",
     "eslint-config-next": "11.1.0",
     "eslint-config-prettier": "^8.3.0",

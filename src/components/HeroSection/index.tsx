@@ -5,8 +5,13 @@ import { Title, TitleTagsEnum } from '../Title'
 import Arrow from '../../icon/description-arrow.svg'
 import styles from './styles.module.sass'
 import { TextAnimLine, textAnimLineSelector } from '../TextAnimLine'
+import { IWorkInfoFields } from '../../@types/generated/cms'
 
-export const HeroSection: FC = () => {
+interface IHeroSectionProps {
+    workInfo: IWorkInfoFields
+}
+
+export const HeroSection: FC<IHeroSectionProps> = ({ workInfo }) => {
     const titleRef = useRef<HTMLHeadingElement>(null)
     const navListRef = useRef<HTMLUListElement>(null)
     const arrowRef = useRef<HTMLDivElement>(null)
@@ -44,6 +49,8 @@ export const HeroSection: FC = () => {
             stagger: { amount: 0.3 }
         })
     }, [])
+
+    console.log({ workInfo })
 
     return (
         <section className={styles.wrapper}>
