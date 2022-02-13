@@ -19,8 +19,8 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@types/*": [
-        "src/@types/*"
+      "@shared-types/*": [
+        "src/shared-types/*"
       ],
       "@cms/*": [
         "src/cms/*"

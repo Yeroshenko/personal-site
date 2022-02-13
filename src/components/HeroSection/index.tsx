@@ -1,11 +1,15 @@
-import React, { FC, useEffect, useRef } from 'react'
+import React, { FC, useEffect, useMemo, useRef } from 'react'
 import { gsap } from 'gsap'
 
-import { Title, TitleTagsEnum } from '../Title'
-import Arrow from '../../icon/description-arrow.svg'
+import { getAssetUrl } from '@cms/helpers/url'
+import { IWorkInfoFields } from '@shared-types/generated/cms'
+import { CircleButton } from '@components/HeroSection/components/CircleButton'
+import { TextAnimLine, textAnimLineSelector } from '../ui/TextAnimLine'
+import { Title, TitleTagsEnum } from '../ui/Title'
+import { RichTextRenderer } from '../ui/RichTextRenderer'
+
+import Arrow from '@icons/description-arrow.svg'
 import styles from './styles.module.sass'
-import { TextAnimLine, textAnimLineSelector } from '../TextAnimLine'
-import { IWorkInfoFields } from '../../@types/generated/cms'
 
 interface IHeroSectionProps {
     workInfo: IWorkInfoFields
@@ -16,13 +20,20 @@ export const HeroSection: FC<IHeroSectionProps> = ({ workInfo }) => {
     const navListRef = useRef<HTMLUListElement>(null)
     const arrowRef = useRef<HTMLDivElement>(null)
     const descriptionRef = useRef<HTMLHeadingElement>(null)
+    const aboutRef = useRef<HTMLDivElement>(null)
+    const circleButtonRef = useRef<HTMLAnchorElement>(null)
+
+    const cvUrl = useMemo(() => getAssetUrl(workInfo.cv), [])
 
     useEffect(() => {
         const titleSelector = gsap.utils.selector(titleRef)
         const descriptionSelector = gsap.utils.selector(descriptionRef)
+        const aboutSelector = gsap.utils.selector(aboutRef)
+        const circleButtonSelector = gsap.utils.selector(circleButtonRef)
 
         gsap.from(titleSelector(textAnimLineSelector), 1.5, {
             y: 130,
+            opacity: 0,
             ease: 'power4.out',
             delay: 0.2,
             stagger: { amount: 0.3 }
@@ -48,6 +59,16 @@ export const HeroSection: FC<IHeroSectionProps> = ({ workInfo }) => {
             ease: 'power4.out',
             stagger: { amount: 0.3 }
         })
+
+        gsap.from(aboutSelector('p'), 2.5, {
+            y: 50,
+            opacity: 0,
+            delay: 1,
+            ease: 'power4.out',
+            stagger: { amount: 0.3 }
+        })
+
+        gsap.from(circleButtonSelector('svg'), 2.5, {})
     }, [])
 
     console.log({ workInfo })
@@ -76,6 +97,14 @@ export const HeroSection: FC<IHeroSectionProps> = ({ workInfo }) => {
                         <TextAnimLine>Developer</TextAnimLine>
                     </h2>
                 </div>
+            </div>
+            <div className={styles.aboutMe}>
+                <CircleButton ref={circleButtonRef} href={cvUrl} target="_blank" title="show cv" />
+                <RichTextRenderer
+                    document={workInfo.about}
+                    className={styles.aboutMeText}
+                    ref={aboutRef}
+                />
             </div>
         </section>
     )

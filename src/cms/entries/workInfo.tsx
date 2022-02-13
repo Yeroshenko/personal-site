@@ -1,5 +1,5 @@
 import { cmsClient } from '../index'
-import { IWorkInfoFields } from '../../@types/generated/cms'
+import { IWorkInfoFields } from '../../shared-types/generated/cms'
 
 export const getWorkInfo = async (): Promise<IWorkInfoFields> => {
     const { items } = await cmsClient.getEntries<IWorkInfoFields>({

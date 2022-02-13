@@ -1,7 +1,7 @@
 import type { GetStaticProps, NextPage } from 'next'
-import { HeroSection } from '../components/HeroSection'
-import { getWorkInfo } from '../cms/entries/workInfo'
-import { IWorkInfoFields } from '../@types/generated/cms'
+import { getWorkInfo } from '@cms/entries/workInfo'
+import { IWorkInfoFields } from '../shared-types/generated/cms'
+import { HeroSection } from '@components/HeroSection'
 
 interface IHomePageProps {
     workInfo: IWorkInfoFields

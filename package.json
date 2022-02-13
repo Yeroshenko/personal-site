@@ -13,7 +13,7 @@
     "format": "prettier --write ./src",
     "prepare": "husky install",
     "test-all": "yarn check-lint && yarn check-types yarn check-format",
-    "contentful-typescript-codegen": "contentful-typescript-codegen --output src/@types/generated/cms.d.ts"
+    "contentful-typescript-codegen": "contentful-typescript-codegen --output src/shared-types/generated/cms.d.ts"
   },
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^15.2.0",
