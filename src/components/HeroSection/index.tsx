@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useMemo, useRef } from 'react'
 import { gsap } from 'gsap'
+import cn from 'classnames'
 
 import { getAssetUrl } from '@cms/helpers/url'
 import { IWorkInfoFields } from '@shared-types/generated/cms'
@@ -10,10 +11,14 @@ import { RichTextRenderer } from '../ui/RichTextRenderer'
 
 import Arrow from '@icons/description-arrow.svg'
 import styles from './styles.module.sass'
+import { getDataAnimSelector } from '../../shared/helpers'
 
 interface IHeroSectionProps {
     workInfo: IWorkInfoFields
 }
+
+const CV_CIRCLE_DATA_ANIM = 'cvCircle'
+const CV_TITLE_DATA_ANIM = 'cvTitle'
 
 export const HeroSection: FC<IHeroSectionProps> = ({ workInfo }) => {
     const titleRef = useRef<HTMLHeadingElement>(null)
@@ -23,7 +28,7 @@ export const HeroSection: FC<IHeroSectionProps> = ({ workInfo }) => {
     const aboutRef = useRef<HTMLDivElement>(null)
     const circleButtonRef = useRef<HTMLAnchorElement>(null)
 
-    const cvUrl = useMemo(() => getAssetUrl(workInfo.cv), [])
+    const cvUrl = useMemo(() => getAssetUrl(workInfo.cv), [workInfo.cv])
 
     useEffect(() => {
         const titleSelector = gsap.utils.selector(titleRef)
@@ -68,7 +73,17 @@ export const HeroSection: FC<IHeroSectionProps> = ({ workInfo }) => {
             stagger: { amount: 0.3 }
         })
 
-        gsap.from(circleButtonSelector('svg'), 2.5, {})
+        gsap.from(circleButtonSelector(getDataAnimSelector(CV_CIRCLE_DATA_ANIM)), 5, {
+            strokeDashoffset: 1260,
+            ease: 'power4.out',
+            delay: 1
+        })
+
+        gsap.from(circleButtonSelector(getDataAnimSelector(CV_TITLE_DATA_ANIM)), 1, {
+            opacity: 0,
+            ease: 'power4.out',
+            delay: 1
+        })
     }, [])
 
     console.log({ workInfo })
@@ -98,8 +113,14 @@ export const HeroSection: FC<IHeroSectionProps> = ({ workInfo }) => {
                     </h2>
                 </div>
             </div>
-            <div className={styles.aboutMe}>
-                <CircleButton ref={circleButtonRef} href={cvUrl} target="_blank" title="show cv" />
+            <div className={cn(styles.aboutMe, 'container')}>
+                <CircleButton
+                    title="show cv"
+                    target="_blank"
+                    href={cvUrl}
+                    ref={circleButtonRef}
+                    animationAttr={{ circle: CV_CIRCLE_DATA_ANIM, title: CV_TITLE_DATA_ANIM }}
+                />
                 <RichTextRenderer
                     document={workInfo.about}
                     className={styles.aboutMeText}

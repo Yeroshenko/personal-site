@@ -28,8 +28,8 @@
       "@components/*": [
         "src/components/*"
       ],
-      "@global-styles/*": [
-        "src/global-styles/*"
+      "@styles/*": [
+        "src/styles/*"
       ],
       "@icons/*": [
         "src/icons/*"
