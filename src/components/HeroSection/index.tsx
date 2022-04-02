@@ -86,8 +86,6 @@ export const HeroSection: FC<IHeroSectionProps> = ({ workInfo }) => {
         })
     }, [])
 
-    console.log({ workInfo })
-
     return (
         <section className={styles.wrapper}>
             <nav className={styles.navigation}>
@@ -108,8 +106,8 @@ export const HeroSection: FC<IHeroSectionProps> = ({ workInfo }) => {
                         <Arrow />
                     </div>
                     <h2 className={styles.description} ref={descriptionRef}>
-                        <TextAnimLine>Front end</TextAnimLine>
-                        <TextAnimLine>Developer</TextAnimLine>
+                        <TextAnimLine className={styles.descriptionLine}>Front end</TextAnimLine>
+                        <TextAnimLine className={styles.descriptionLine}>Developer</TextAnimLine>
                     </h2>
                 </div>
             </div>

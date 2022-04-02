@@ -1,16 +1,19 @@
 import React, { FC } from 'react'
 import styles from './styles.module.sass'
+import cn from 'classnames'
 
 const dataAnimAttrValue = 'anim-line'
 
-export const TextAnimLine: FC = ({ children }) => {
-    return (
-        <span className={styles.lineWrapper}>
-            <span className={styles.line} data-anim={dataAnimAttrValue}>
-                {children}
-            </span>
-        </span>
-    )
+type ITextAnimLineProps = {
+    className?: string
 }
+
+export const TextAnimLine: FC<ITextAnimLineProps> = ({ children, className }) => (
+    <span className={cn(styles.lineWrapper, className)}>
+        <span className={styles.line} data-anim={dataAnimAttrValue}>
+            {children}
+        </span>
+    </span>
+)
 
 export const textAnimLineSelector = `[data-anim='${dataAnimAttrValue}']`
